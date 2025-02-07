@@ -7,60 +7,6 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Counter from "./components/Counter";
 
-/*
-const user = {
-  nome: "João Victor",
-  idade: 23,
-  profissao: "Dev",
-  cidade: "Rio",
-  admin: false,
-};
-
-const users = [
-  {
-    nome: "João Victor",
-    idade: 23,
-    profissao: "Dev",
-    cidade: "Rio",
-    admin: true,
-  },
-  {
-    nome: "Teste 2",
-    idade: 45,
-    profissao: "Designer",
-    cidade: "São Paulo",
-    admin: false,
-  },
-  {
-    nome: "Teste 3",
-    idade: 35,
-    profissao: "Marketing",
-    cidade: "Rio",
-    admin: false,
-  },
-  {
-    nome: "Teste 4",
-    idade: 35,
-    profissao: "Marketing",
-    cidade: "Rio",
-    admin: false,
-  },
-  {
-    nome: "Teste 5",
-    idade: 35,
-    profissao: "Marketing",
-    cidade: "Rio",
-    admin: false,
-  },
-  {
-    nome: "Teste 6",
-    idade: 35,
-    profissao: "Marketing",
-    cidade: "Rio",
-    admin: false,
-  },
-];
-*/
 export default function App() {
   const [users, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
