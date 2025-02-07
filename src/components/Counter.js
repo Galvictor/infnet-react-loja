@@ -7,8 +7,15 @@ export default function Counter() {
     <div className="text-center mb-4">
       <h3>Contador</h3>
       <p>Valor: {count}</p>
-      <button onClick={() => setCount(count + 1)}>Incrementar</button>
-      <button onClick={() => setCount(count - 1)}>Decrementar</button>
+      <button
+        className="btn btn-success me-2"
+        onClick={() => setCount(count + 1)}
+      >
+        Incrementar
+      </button>
+      <button className="btn btn-danger" onClick={() => setCount(count - 1)}>
+        Decrementar
+      </button>
     </div>
   );
 }

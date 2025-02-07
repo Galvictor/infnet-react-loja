@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Counter from "./components/Counter";
+import InputName from "./components/InputNome";
 
 export default function App() {
   const [users, setUser] = useState([]);
@@ -38,6 +39,7 @@ export default function App() {
     <>
       <Header />
       <div className="container">
+        <InputName />
         <Counter />
         <div className="users">
           {users.map((user, index) => (
