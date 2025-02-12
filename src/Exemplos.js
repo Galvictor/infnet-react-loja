@@ -2,8 +2,6 @@ import React, {useEffect, useState} from "react";
 import InputName from "./components/InputNome";
 import Counter from "./components/Counter";
 import UserCard from "./components/UserCard";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 
 const Exemplos = () => {
 
