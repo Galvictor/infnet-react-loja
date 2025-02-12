@@ -8,7 +8,7 @@ export default function Header() {
             <Navbar className="mb-2 py-4" color="dark" dark expand="md">
                 <NavbarBrand tag={Link} to="/">
                     <img src={logo} className="me-4" alt="Logo" />
-                    MIT - INFNET - Interfaces com React
+                    MIT - INFNET - Interfaces com React - João Victor
                 </NavbarBrand>
                 <Nav className="ms-auto" navbar>
                     <NavItem>
