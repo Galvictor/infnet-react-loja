@@ -1,5 +1,5 @@
 // src/Home.js
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import {
     Form,
     FormFeedback,
@@ -12,6 +12,7 @@ import {
     ModalBody,
     ModalFooter,
 } from "reactstrap";
+import Select from "./components/Select";
 
 export default function Home() {
     // Estado inicial do formulário
@@ -20,6 +21,7 @@ export default function Home() {
         email: "",
         senha: "",
         confirmarSenha: "",
+        role: "",
     });
 
     // Estados para validação
@@ -48,7 +50,7 @@ export default function Home() {
 
     // Função para lidar com mudanças nos campos do formulário
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setFormValues({
             ...formValues, // Mantém os valores existentes
             [name]: value, // Atualiza o campo específico
@@ -73,6 +75,7 @@ export default function Home() {
             email: "",
             senha: "",
             confirmarSenha: "",
+            role: "",
         });
     };
 
@@ -103,6 +106,9 @@ export default function Home() {
                     </p>
                     <p>
                         <strong>Confirmar Senha:</strong> {formValues.confirmarSenha}
+                    </p>
+                    <p>
+                        <strong>Cargo:</strong> {formValues.role}
                     </p>
                 </ModalBody>
                 <ModalFooter>
@@ -162,6 +168,12 @@ export default function Home() {
                     />
                     <FormFeedback invalid>Senha não é igual</FormFeedback>
                 </FormGroup>
+                <Select
+                    name="role"
+                    label="Selecione um cargo"
+                    value={formValues.role}
+                    onChange={handleChange}
+                />
                 <Button type="submit" color="primary" disabled={!formValido}>
                     Enviar
                 </Button>
