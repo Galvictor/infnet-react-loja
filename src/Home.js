@@ -27,9 +27,32 @@ export default function Home() {
     // Estados para validação
     const [senhaValida, setSenhaValida] = useState(true);
     const [formValido, setFormValido] = useState(false);
+    const [roleInvalido, setRoleInvalido] = useState(false);
 
     // Estado para controlar o Modal
     const [modalVisible, setModalVisible] = useState(false);
+
+    // Estados para os dados da API
+    const [options, setOptions] = useState([]); // Opções para o Select
+    const [loading, setLoading] = useState(true); // Estado de carregamento
+
+    // Busca os dados da API ao montar o componente
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true); // Ativa o estado de carregamento
+                const response = await fetch("https://api.npoint.io/894b71dcf430f831f121"); // URL da API
+                const data = await response.json();
+                setOptions(data.options); // Define as opções no estado
+            } catch (error) {
+                console.error("Erro ao buscar dados da API:", error);
+            } finally {
+                setLoading(false); // Desativa o estado de carregamento
+            }
+        };
+
+        fetchData();
+    }, []);
 
     // Função para validar o formulário
     const validarFormulario = () => {
@@ -37,9 +60,13 @@ export default function Home() {
         const senhasIguais = formValues.senha === formValues.confirmarSenha;
         setSenhaValida(senhasIguais);
 
+        // Verifica se o campo role foi preenchido
+        const rolePreenchido = !!formValues.role;
+        setRoleInvalido(!rolePreenchido);
+
         // Verifica se todos os campos estão preenchidos
         const camposPreenchidos =
-            formValues.nome && formValues.email && formValues.senha && formValues.confirmarSenha;
+            formValues.nome && formValues.email && formValues.senha && formValues.confirmarSenha && rolePreenchido;
         setFormValido(senhasIguais && camposPreenchidos);
     };
 
@@ -173,6 +200,11 @@ export default function Home() {
                     label="Selecione um cargo"
                     value={formValues.role}
                     onChange={handleChange}
+                    options={options} // Passa as opções como prop
+                    loading={loading} // Passa o estado de carregamento como prop
+                    placeholder="Escolha um cargo" // Placeholder personalizado
+                    invalid={roleInvalido} // Define se o campo é inválido
+                    errorMessage="Por favor, selecione um cargo." // Mensagem de erro
                 />
                 <Button type="submit" color="primary" disabled={!formValido}>
                     Enviar

@@ -1,27 +1,7 @@
-import React, { useState, useEffect } from "react";
-import {FormGroup, Input, Label} from "reactstrap";
+import React from "react";
+import {FormFeedback, FormGroup, Input, Label} from "reactstrap";
 
-function Select({ name, label, value, onChange }) {
-    const [options, setOptions] = useState([]); // Estado para armazenar as opções
-    const [loading, setLoading] = useState(true); // Estado para controlar o carregamento
-
-    // Busca os dados da API ao montar o componente
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setLoading(true); // Ativa o estado de carregamento
-                const response = await fetch("https://api.npoint.io/894b71dcf430f831f121"); // URL da API
-                const data = await response.json();
-                setOptions(data.options); // Define as opções no estado
-            } catch (error) {
-                console.error("Erro ao buscar dados da API:", error);
-            } finally {
-                setLoading(false); // Desativa o estado de carregamento
-            }
-        };
-
-        fetchData();
-    }, []);
+function Select({ name, label, value, onChange, options, loading, placeholder, invalid, errorMessage }) {
 
     return (
         <FormGroup>
@@ -33,12 +13,13 @@ function Select({ name, label, value, onChange }) {
                 value={value}
                 onChange={onChange}
                 disabled={loading} // Desabilita o select enquanto os dados estão sendo carregados
+                invalid={invalid}
             >
                 {loading ? (
                     <option value="" disabled>Loading...</option> // Exibe "Loading..." enquanto os dados estão sendo carregados
                 ) : (
                     <>
-                        <option value="">Selecione um cargo</option> {/* Placeholder exibido apenas quando loading = false */}
+                        <option value="">{placeholder}</option> {/* Placeholder exibido apenas quando loading = false */}
                         {options.map((option) => (
                             <option key={option.value} value={option.value}>
                                 {option.label}
@@ -47,6 +28,7 @@ function Select({ name, label, value, onChange }) {
                     </>
                 )}
             </Input>
+            {invalid && <FormFeedback>{errorMessage}</FormFeedback>}
         </FormGroup>
     );
 }
