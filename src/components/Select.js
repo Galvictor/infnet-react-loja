@@ -1,7 +1,9 @@
 import React from "react";
-import {FormFeedback, FormGroup, Input, Label} from "reactstrap";
+import {FormFeedback, FormGroup, Input, Label, Spinner} from "reactstrap";
 
-function Select({ name, label, value, onChange, options, loading, placeholder, invalid, errorMessage }) {
+function Select({name, label, value, onChange, options, loading, placeholder, invalid, errorMessage}) {
+
+    placeholder = placeholder || "Selecione uma opção"; // Define um valor padrão para o placeholder
 
     return (
         <FormGroup>
@@ -16,10 +18,18 @@ function Select({ name, label, value, onChange, options, loading, placeholder, i
                 invalid={invalid}
             >
                 {loading ? (
-                    <option value="" disabled>Loading...</option> // Exibe "Loading..." enquanto os dados estão sendo carregados
+                    <option value="" disabled>
+                        <Spinner
+                            color="primary"
+                            size="sm"
+                        >
+                            Carregando...
+                        </Spinner>
+                    </option> // Exibe "Loading..." enquanto os dados estão sendo carregados
                 ) : (
                     <>
-                        <option value="">{placeholder}</option> {/* Placeholder exibido apenas quando loading = false */}
+                        <option value="">{placeholder}</option>
+                        {/* Placeholder exibido apenas quando loading = false */}
                         {options.map((option) => (
                             <option key={option.value} value={option.value}>
                                 {option.label}
