@@ -36,6 +36,9 @@ export default function Home() {
     const [options, setOptions] = useState([]); // Opções para o Select
     const [loading, setLoading] = useState(true); // Estado de carregamento
 
+    // Estado para os detalhes do cargo
+    const [roleDetails, setRoleDetails] = useState(null); // Detalhes do cargo selecionado
+
     // Busca os dados da API ao montar o componente
     useEffect(() => {
         const fetchData = async () => {
@@ -53,6 +56,18 @@ export default function Home() {
 
         fetchData();
     }, []);
+
+    // Função para buscar os detalhes do cargo selecionado
+    const fetchRoleDetails = async (roleId) => {
+        try {
+            const response = await fetch("https://api.npoint.io/7ff92e886b50166207a6"); // URL da nova API de detalhes
+            const data = await response.json();
+            const role = data.roles.find((r) => r.id === roleId); // Encontra o cargo pelo ID
+            setRoleDetails(role); // Define os detalhes do cargo no estado
+        } catch (error) {
+            console.error("Erro ao buscar detalhes do cargo:", error);
+        }
+    };
 
     // Função para validar o formulário
     const validarFormulario = () => {
@@ -76,12 +91,18 @@ export default function Home() {
     }, [formValues]); // Executa sempre que formValues mudar
 
     // Função para lidar com mudanças nos campos do formulário
-    const handleChange = (e) => {
+    const handleChange = async (e) => {
         const {name, value} = e.target;
         setFormValues({
             ...formValues, // Mantém os valores existentes
             [name]: value, // Atualiza o campo específico
         });
+
+        // Se o campo alterado for o role, busca os detalhes do cargo
+        if (name === "role" && value) {
+            await fetchRoleDetails(value);
+        }
+
     };
 
     // Função para abrir o Modal
@@ -104,6 +125,7 @@ export default function Home() {
             confirmarSenha: "",
             role: "",
         });
+        setRoleDetails(null); // Limpa os detalhes do cargo
     };
 
     // Função para lidar com o envio do formulário
@@ -135,8 +157,13 @@ export default function Home() {
                         <strong>Confirmar Senha:</strong> {formValues.confirmarSenha}
                     </p>
                     <p>
-                        <strong>Cargo:</strong> {formValues.role}
+                        <strong>Cargo:</strong> {roleDetails ? roleDetails.title : "Nenhum cargo selecionado"}
                     </p>
+                    {roleDetails && (
+                        <p>
+                            <strong>Descrição:</strong> {roleDetails.description}
+                        </p>
+                    )}
                 </ModalBody>
                 <ModalFooter>
                     <Button color="primary" onClick={fecharModal}>
@@ -206,6 +233,11 @@ export default function Home() {
                     invalid={roleInvalido} // Define se o campo é inválido
                     errorMessage="Por favor, selecione um cargo." // Mensagem de erro
                 />
+                {roleDetails && (
+                    <p>
+                        <strong>Descrição:</strong> {roleDetails.description}
+                    </p>
+                )}
                 <Button type="submit" color="primary" disabled={!formValido}>
                     Enviar
                 </Button>
