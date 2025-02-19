@@ -40,3 +40,8 @@ h1 {
 footer {
   text-align: center;
 }
+
+.nav-link{
+    color: white;
+    font-size: 20px;
+}
