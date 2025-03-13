@@ -37,6 +37,11 @@ export default function Header() {
                                 Exemplos
                             </NavLink>
                         </NavItem>
+                        <NavItem>
+                            <NavLink tag={Link} to="/todo">
+                                Todo
+                            </NavLink>
+                        </NavItem>
                     </Nav>
                 </Collapse>
             </Navbar>
