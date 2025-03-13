@@ -6,7 +6,7 @@ const TodoPage = () => {
         {heading: "Mercado", listInputs: []},
         {heading: "Backlog", listInputs: []},
     ]); // LISTAS
-    const [headingInput, setHeadingInput] = useState(''); // TITULO
+    const [headingInput, setHeadingInput] = useState(''); // TÍTULO
     const [listInputs, setListInputs] = useState({}); // ITENS DAS LISTAS
 
     const handleAddTodo = () => {
@@ -32,6 +32,12 @@ const TodoPage = () => {
         setListInputs({...listInputs, [index]: value});
     };
 
+    // Função para deletar uma lista
+    const handleDeleteTodo = (index) => {
+        const newTodos = todos.filter((_, i) => i !== index); // Filtra a lista, removendo o item no índice especificado
+        setTodos(newTodos);
+    };
+
     return (
         <Container className="mt-5">
             <h1 className="text-center mb-4">Minha Lista</h1>
@@ -39,14 +45,14 @@ const TodoPage = () => {
                 <Col md={8}>
                     <Input
                         type="text"
-                        placeholder="Enter heading"
+                        placeholder="Digite o título"
                         value={headingInput}
                         onChange={(e) => setHeadingInput(e.target.value)}
                     />
                 </Col>
                 <Col md={4}>
                     <Button color="primary" onClick={handleAddTodo} block>
-                        Add List
+                        Adicionar Lista
                     </Button>
                 </Col>
             </Row>
@@ -57,8 +63,12 @@ const TodoPage = () => {
                             <CardBody>
                                 <CardTitle tag="h3" className="d-flex justify-content-between align-items-center">
                                     {todo.heading}
-                                    <Button color="danger" size="sm">
-                                        [x] List
+                                    <Button
+                                        color="danger"
+                                        size="sm"
+                                        onClick={() => handleDeleteTodo(index)} // Vincula a função de deletar ao botão
+                                    >
+                                        [x] Lista
                                     </Button>
                                 </CardTitle>
                                 <CardText>
@@ -70,7 +80,7 @@ const TodoPage = () => {
                                         className="mb-2"
                                     />
                                     <Button color="success" onClick={() => handleAddList(index)} block>
-                                        Add Item
+                                        Adicionar Item
                                     </Button>
                                 </CardText>
                                 <ul>
