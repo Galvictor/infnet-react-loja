@@ -38,6 +38,13 @@ const TodoPage = () => {
         setTodos(newTodos);
     };
 
+    // Função para deletar um item da lista
+    const handleDeleteItem = (todoIndex, itemIndex) => {
+        const newTodos = [...todos];
+        newTodos[todoIndex].listInputs.splice(itemIndex, 1); // Remove o item no índice especificado
+        setTodos(newTodos);
+    };
+
     return (
         <Container className="mt-5">
             <h1 className="text-center mb-4">Minha Lista</h1>
@@ -83,9 +90,18 @@ const TodoPage = () => {
                                         Adicionar Item
                                     </Button>
                                 </CardText>
-                                <ul>
+                                <ul className="list-unstyled">
                                     {todo.listInputs.map((item, i) => (
-                                        <li key={i}>{item}</li>
+                                        <li key={i} className="d-flex justify-content-between align-items-center mb-2">
+                                            {item}
+                                            <Button
+                                                color="danger"
+                                                size="sm"
+                                                onClick={() => handleDeleteItem(index, i)} // Vincula a função de deletar item
+                                            >
+                                                [x]
+                                            </Button>
+                                        </li>
                                     ))}
                                 </ul>
                             </CardBody>
