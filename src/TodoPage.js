@@ -5,13 +5,13 @@ import {Button, Input, Card, CardBody, CardTitle, CardText, Container, Row, Col}
 const todoReducer = (state, action) => {
     switch (action.type) {
         case "ADD_TODO":
-            return [...state, {heading: action.payload, listInputs: []}];
+            return [...state, {heading: action.payload.trim(), listInputs: []}];
         case "DELETE_TODO":
             return state.filter((_, index) => index !== action.payload);
         case "ADD_ITEM":
             return state.map((todo, index) =>
                 index === action.payload.todoIndex
-                    ? {...todo, listInputs: [...todo.listInputs, action.payload.item]}
+                    ? {...todo, listInputs: [...todo.listInputs, action.payload.item.trim()]}
                     : todo
             );
         case "DELETE_ITEM":
