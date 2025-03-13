@@ -21,7 +21,9 @@ export default function Header() {
                                 }
                             } src={logo} className="me-0 me-lg-4 img-fluid" alt="Logo"/>
                         </div>
-                        <div className="d-none d-lg-block">MIT - INFNET - Interfaces com React - João Victor</div>
+                        <div className="d-none d-lg-block">Projeto de Interfaces com React [25E1_2] e Front-end com
+                            React [25E1_3] - João Victor
+                        </div>
                     </div>
                 </NavbarBrand>
                 <NavbarToggler onClick={toggle}/>
