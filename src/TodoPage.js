@@ -1,49 +1,74 @@
-import React, {useState} from "react";
+import React, {useReducer, useCallback, useState} from "react";
 import {Button, Input, Card, CardBody, CardTitle, CardText, Container, Row, Col} from "reactstrap";
 
+// Definição do reducer para gerenciar o estado das listas e itens
+const todoReducer = (state, action) => {
+    switch (action.type) {
+        case "ADD_TODO":
+            return [...state, {heading: action.payload, listInputs: []}];
+        case "DELETE_TODO":
+            return state.filter((_, index) => index !== action.payload);
+        case "ADD_ITEM":
+            return state.map((todo, index) =>
+                index === action.payload.todoIndex
+                    ? {...todo, listInputs: [...todo.listInputs, action.payload.item]}
+                    : todo
+            );
+        case "DELETE_ITEM":
+            return state.map((todo, index) =>
+                index === action.payload.todoIndex
+                    ? {...todo, listInputs: todo.listInputs.filter((_, i) => i !== action.payload.itemIndex)}
+                    : todo
+            );
+        default:
+            return state;
+    }
+};
+
 const TodoPage = () => {
-    const [todos, setTodos] = useState([
+    const [todos, dispatch] = useReducer(todoReducer, [
         {heading: "Mercado", listInputs: []},
         {heading: "Backlog", listInputs: []},
-    ]); // LISTAS
-    const [headingInput, setHeadingInput] = useState(''); // TÍTULO
-    const [listInputs, setListInputs] = useState({}); // ITENS DAS LISTAS
+    ]);
+    const [headingInput, setHeadingInput] = useState("");
+    const [listInputs, setListInputs] = useState({});
 
-    const handleAddTodo = () => {
-        if (headingInput.trim() !== '') {
-            setTodos([
-                ...todos,
-                {heading: headingInput, listInputs: []}
-            ]);
-            setHeadingInput('');
+    // Função para adicionar uma nova lista
+    const handleAddTodo = useCallback(() => {
+        if (headingInput.trim()) {
+            dispatch({type: "ADD_TODO", payload: headingInput});
+            setHeadingInput("");
         }
-    };
+    }, [headingInput]);
 
-    const handleAddList = (index) => {
-        if (listInputs[index] && listInputs[index].trim() !== '') {
-            const newTodos = [...todos];
-            newTodos[index].listInputs.push(listInputs[index]);
-            setTodos(newTodos);
-            setListInputs({...listInputs, [index]: ''});
-        }
-    };
-
-    const handleListInputChange = (index, value) => {
-        setListInputs({...listInputs, [index]: value});
-    };
+    // Função para adicionar um item a uma lista
+    const handleAddItem = useCallback(
+        (todoIndex) => {
+            if (listInputs[todoIndex]?.trim()) {
+                dispatch({
+                    type: "ADD_ITEM",
+                    payload: {todoIndex, item: listInputs[todoIndex]},
+                });
+                setListInputs((prev) => ({...prev, [todoIndex]: ""}));
+            }
+        },
+        [listInputs]
+    );
 
     // Função para deletar uma lista
-    const handleDeleteTodo = (index) => {
-        const newTodos = todos.filter((_, i) => i !== index); // Filtra a lista, removendo o item no índice especificado
-        setTodos(newTodos);
-    };
+    const handleDeleteTodo = useCallback((todoIndex) => {
+        dispatch({type: "DELETE_TODO", payload: todoIndex});
+    }, []);
 
-    // Função para deletar um item da lista
-    const handleDeleteItem = (todoIndex, itemIndex) => {
-        const newTodos = [...todos];
-        newTodos[todoIndex].listInputs.splice(itemIndex, 1); // Remove o item no índice especificado
-        setTodos(newTodos);
-    };
+    // Função para deletar um item de uma lista
+    const handleDeleteItem = useCallback((todoIndex, itemIndex) => {
+        dispatch({type: "DELETE_ITEM", payload: {todoIndex, itemIndex}});
+    }, []);
+
+    // Função para atualizar o valor do input de itens
+    const handleListInputChange = useCallback((todoIndex, value) => {
+        setListInputs((prev) => ({...prev, [todoIndex]: value}));
+    }, []);
 
     return (
         <Container className="mt-5">
@@ -64,8 +89,8 @@ const TodoPage = () => {
                 </Col>
             </Row>
             <Row>
-                {todos.map((todo, index) => (
-                    <Col key={index} md={4} className="mb-4">
+                {todos.map((todo, todoIndex) => (
+                    <Col key={todoIndex} md={4} className="mb-4">
                         <Card>
                             <CardBody>
                                 <CardTitle tag="h3" className="d-flex justify-content-between align-items-center">
@@ -73,7 +98,7 @@ const TodoPage = () => {
                                     <Button
                                         color="danger"
                                         size="sm"
-                                        onClick={() => handleDeleteTodo(index)} // Vincula a função de deletar ao botão
+                                        onClick={() => handleDeleteTodo(todoIndex)}
                                     >
                                         [x] Lista
                                     </Button>
@@ -82,22 +107,23 @@ const TodoPage = () => {
                                     <Input
                                         type="text"
                                         placeholder="Item"
-                                        value={listInputs[index] || ''}
-                                        onChange={(e) => handleListInputChange(index, e.target.value)}
+                                        value={listInputs[todoIndex] || ""}
+                                        onChange={(e) => handleListInputChange(todoIndex, e.target.value)}
                                         className="mb-2"
                                     />
-                                    <Button color="success" onClick={() => handleAddList(index)} block>
+                                    <Button color="success" onClick={() => handleAddItem(todoIndex)} block>
                                         Adicionar Item
                                     </Button>
                                 </CardText>
                                 <ul className="list-unstyled">
-                                    {todo.listInputs.map((item, i) => (
-                                        <li key={i} className="d-flex justify-content-between align-items-center mb-2">
+                                    {todo.listInputs.map((item, itemIndex) => (
+                                        <li key={itemIndex}
+                                            className="d-flex justify-content-between align-items-center mb-2">
                                             {item}
                                             <Button
                                                 color="danger"
                                                 size="sm"
-                                                onClick={() => handleDeleteItem(index, i)} // Vincula a função de deletar item
+                                                onClick={() => handleDeleteItem(todoIndex, itemIndex)}
                                             >
                                                 [x]
                                             </Button>
