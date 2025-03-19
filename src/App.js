@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import Exemplos from "./Exemplos";
 import Home from "./Home";
 import TodoPage from "./TodoPage";
+import Data from "./Data";
 
 export default function App() {
     return (
@@ -16,6 +17,7 @@ export default function App() {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/exemplos" element={<Exemplos/>}/>
                     <Route path="/todo" element={<TodoPage/>}/>
+                    <Route path="/Data" element={<Data/>}/>
                 </Routes>
             </div>
             <Footer/>
