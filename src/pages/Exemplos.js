@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import InputName from "./components/InputNome";
-import Counter from "./components/Counter";
-import UserCard from "./components/UserCard";
-import Timer from "./components/Timer";
+import InputName from "../components/InputNome";
+import Counter from "../components/Counter";
+import UserCard from "../components/UserCard";
+import Timer from "../components/Timer";
 
 const Exemplos = () => {
 

@@ -1,5 +1,5 @@
-import Planets from "./components/Planets";
-import Foods from "./components/Foods";
+import Planets from "../components/Planets";
+import Foods from "../components/Foods";
 
 const Data = () => {
 

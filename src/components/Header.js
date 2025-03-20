@@ -49,6 +49,11 @@ export default function Header() {
                                 Data
                             </NavLink>
                         </NavItem>
+                        <NavItem>
+                            <NavLink tag={Link} to="/users-list">
+                                Users List
+                            </NavLink>
+                        </NavItem>
                     </Nav>
                 </Collapse>
             </Navbar>

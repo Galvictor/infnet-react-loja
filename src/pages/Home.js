@@ -12,7 +12,7 @@ import {
     ModalBody,
     ModalFooter,
 } from "reactstrap";
-import Select from "./components/Select";
+import Select from "../components/Select";
 
 export default function Home() {
     // Estado inicial do formulário

@@ -3,10 +3,11 @@ import "./styles.css";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Exemplos from "./Exemplos";
-import Home from "./Home";
-import TodoPage from "./TodoPage";
-import Data from "./Data";
+import Exemplos from "./pages/Exemplos";
+import Home from "./pages/Home";
+import TodoPage from "./pages/TodoPage";
+import Data from "./pages/Data";
+import UsersListPage from "./pages/UsersListPage";
 
 export default function App() {
     return (
@@ -17,7 +18,8 @@ export default function App() {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/exemplos" element={<Exemplos/>}/>
                     <Route path="/todo" element={<TodoPage/>}/>
-                    <Route path="/Data" element={<Data/>}/>
+                    <Route path="/data" element={<Data/>}/>
+                    <Route path="/users-list" element={<UsersListPage/>}/>
                 </Routes>
             </div>
             <Footer/>
