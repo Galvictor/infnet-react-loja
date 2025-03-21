@@ -5,7 +5,6 @@ const UsersListPage = () => {
 
     return (
         <>
-            {/*<Login/>*/}
             <UserList/>
         </>
     )

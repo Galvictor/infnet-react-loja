@@ -8,21 +8,34 @@ import Home from "./pages/Home";
 import TodoPage from "./pages/TodoPage";
 import Data from "./pages/Data";
 import UsersListPage from "./pages/UsersListPage";
+import {AuthProvider} from "./contexts/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+import LoginPage from "./pages/LoginPage";
 
 export default function App() {
     return (
-        <Router>
-            <Header/>
-            <div className="container">
-                <Routes>
-                    <Route path="/" element={<Home/>}/>
-                    <Route path="/exemplos" element={<Exemplos/>}/>
-                    <Route path="/todo" element={<TodoPage/>}/>
-                    <Route path="/data" element={<Data/>}/>
-                    <Route path="/users-list" element={<UsersListPage/>}/>
-                </Routes>
-            </div>
-            <Footer/>
-        </Router>
+        <AuthProvider>
+            <Router>
+                <Header/>
+                <div className="container">
+                    <Routes>
+                        <Route path="/" element={<Home/>}/>
+                        <Route path="/exemplos" element={<Exemplos/>}/>
+                        <Route path="/todo" element={<TodoPage/>}/>
+                        <Route path="/data" element={<Data/>}/>
+                        <Route path="/login" element={<LoginPage/>}/>
+                        <Route
+                            path="/users-list"
+                            element={
+                                <ProtectedRoute>
+                                    <UsersListPage/>
+                                </ProtectedRoute>
+                            }
+                        />
+                    </Routes>
+                </div>
+                <Footer/>
+            </Router>
+        </AuthProvider>
     );
 }
