@@ -10,15 +10,16 @@ const api = axios.create(
     }
 );
 
-export const fetchUsers = async () => {
+export const fetchUsers = async (limit = 5, skip = 0) => {
     try {
-        const response = await api.get("/users");
+        const response = await api.get(`/users?limit=${limit}&skip=${skip}`);
         return response.data;
     } catch (error) {
-        console.error("Erro ao buscar o usuário:", error.message);
+        console.error("Erro ao buscar usuários:", error.message);
         throw error;
     }
 };
+
 
 export const updateUser = async () => {
 };
