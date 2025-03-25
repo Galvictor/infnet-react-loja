@@ -19,7 +19,7 @@ export default function Header() {
                             <img style={{maxWidth: "200px"}} src={logo} className="me-0 me-lg-4 img-fluid" alt="Logo"/>
                         </div>
                         <div className="d-none d-lg-block">
-                            Projeto de Interfaces com React [25E1_2] e Front-end com React [25E1_3] - João Victor
+                            Projeto de Front-end com React [25E1_3] - João Victor
                         </div>
                     </div>
                 </NavbarBrand>
@@ -30,13 +30,13 @@ export default function Header() {
                             <NavLink tag={Link} to="/">Home</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} to="/exemplos">Exemplos</NavLink>
-                        </NavItem>
-                        <NavItem>
                             <NavLink tag={Link} to="/todo">Todo</NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink tag={Link} to="/data">Data</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink tag={Link} to="/loja">Loja</NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink tag={Link} to="/users-list">Users List</NavLink>

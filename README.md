@@ -1,67 +1,45 @@
-# Formulário React com Validação e Integração de API
+# Projeto Front-end com React [25E1_3]
 
-Este projeto é um formulário React que utiliza `reactstrap` para a interface e faz integração com uma API para buscar opções de cargos e detalhes sobre eles. O formulário inclui validações em tempo real, exibição de detalhes em um modal e tratamento de erros.
+Este projeto foi desenvolvido para o curso **Front-end com React [25E1_3]**.
 
-## Funcionalidades
+## 📌 Sobre o Projeto
 
-1. **Formulário com Validação**:
-    - Campos obrigatórios: Nome, E-mail, Senha, Confirmar Senha e Cargo.
-    - Validação de senha: A senha e a confirmação de senha devem ser iguais.
-    - Validação do campo de cargo: O usuário deve selecionar um cargo.
+O projeto inclui diversas funcionalidades relacionadas a gerenciamento de estado e navegação em React, utilizando **Bootstrap** e **Reactstrap** para a estilização.
 
-2. **Integração com API**:
-    - Busca opções de cargos de uma API (npoint.io).
-    - Busca detalhes do cargo selecionado de uma segunda API.
+### 📌 Funcionalidades
+- **Loja e Users List** (rota protegida por login)
+   - Adicionar itens ao carrinho
+   - Remover itens do carrinho
+   - Checkout fake
+- **Outras rotas:**
+   - **Todo**: Criado em aula para gerenciamento de tarefas.
+   - **Data**: Criado em aula para exibir e manipular dados.
 
-3. **Exibição de Detalhes**:
-    - Quando o usuário seleciona um cargo, os detalhes (título e descrição) são buscados e exibidos em um modal.
+## 🚀 Tecnologias Utilizadas
+- React
+- React Router
+- Bootstrap
+- Reactstrap
 
-4. **Componente Reutilizável**:
-    - O componente `Select` é reutilizável e pode ser usado em outros formulários.
+## 🛠 Como Executar o Projeto
 
-5. **Feedback Visual**:
-    - Mensagens de erro e sucesso.
-    - Spinners para indicar carregamento.
+### 1️⃣ Pré-requisitos
+Certifique-se de ter o **Node.js** instalado. Se não tiver, baixe [aqui](https://nodejs.org/).
 
-## Tecnologias Utilizadas
+### 2️⃣ Instalar dependências
+```sh
+npm install
+```
 
-- **React**: Biblioteca JavaScript para construção de interfaces.
-- **Reactstrap**: Biblioteca de componentes React baseada no Bootstrap.
-- **Fetch API**: Para fazer requisições HTTP.
-- **npoint.io**: Serviço para criar APIs de teste.
-- **React Router**: Para navegação entre páginas.
+### 3️⃣ Rodar o projeto
+```sh
+npm start
+```
+O projeto será aberto no navegador no endereço `http://localhost:3000/`.
 
-## Como Executar o Projeto
+## 📄 Licença
+Este projeto é apenas para fins educacionais.
 
-### Pré-requisitos
+---
+Aluno: **João Victor**
 
-- Node.js instalado (versão 14 ou superior).
-- NPM ou Yarn para gerenciamento de dependências.
-
-### Passos para Configuração
-
-1. **Clone o repositório**:
-   ```bash
-   git clone https://github.com/seu-usuario/react-formulario.git
-   cd react-formulario
-   ```
-2. **Instale as dependências**:
-   ```bash
-   npm install
-   ```
-   ou
-   ```bash
-   yarn install
-   ```
-3. **Inicie o servidor de desenvolvimento**:
-   ```bash
-    npm start
-    ```
-    ou
-    ```bash
-    yarn start
-    ```
-4. **Acesse o projeto no navegador**:
-    - Abra o navegador e acesse `http://localhost:3000`.
-    - O formulário será exibido e você poderá interagir com ele na pagina inicial.
-    - Existe outra página de exemplo que pode ser acessada através do link no menu chamado "Exemplo".
