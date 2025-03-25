@@ -33,9 +33,6 @@ export default function Header() {
                             <NavLink tag={Link} to="/todo">Todo</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} to="/data">Data</NavLink>
-                        </NavItem>
-                        <NavItem>
                             <NavLink tag={Link} to="/loja">Loja</NavLink>
                         </NavItem>
                         <NavItem>

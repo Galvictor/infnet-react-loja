@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Card, CardBody, CardTitle, CardText } from "reactstrap";
+import {Container, Card, CardBody, CardTitle, CardText} from "reactstrap";
 
 export default function Home() {
     return (
@@ -10,17 +10,17 @@ export default function Home() {
                     <CardText className="lead">
                         Um projeto para o curso <strong>Front-end com React [25E1_3]</strong>.
                     </CardText>
-                    <hr />
+                    <hr/>
                     <CardText>
                         Desenvolvido pelo aluno <strong>João Victor</strong>.
                     </CardText>
                     <CardText>
                         <strong>Funcionalidades:</strong>
                         <ul>
-                            <li>Rota <strong>Loja e Users List</strong> protegida por login.</li>
+                            <li>Rota <strong>Loja, Cart e Users List</strong> protegida por login.</li>
                             <li>Adição e remoção de itens do carrinho.</li>
                             <li>Checkout fake.</li>
-                            <li>Rotas <strong>Todo</strong> e <strong>Data</strong> feitas em aula.</li>
+                            <li>Rota <strong>Todo</strong> para organizar suas tarefas.</li>
                         </ul>
                     </CardText>
                 </CardBody>
