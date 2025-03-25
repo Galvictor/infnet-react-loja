@@ -25,7 +25,7 @@ export default function Header() {
                 </NavbarBrand>
                 <NavbarToggler onClick={toggle}/>
                 <Collapse isOpen={isOpen} navbar>
-                    <Nav className="ms-auto" navbar>
+                    <Nav className="ms-auto align-items-center" navbar>
                         <NavItem>
                             <NavLink tag={Link} to="/">Home</NavLink>
                         </NavItem>
@@ -37,6 +37,9 @@ export default function Header() {
                         </NavItem>
                         <NavItem>
                             <NavLink tag={Link} to="/loja">Loja</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink tag={Link} to="/cart">Cart</NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink tag={Link} to="/users-list">Users List</NavLink>

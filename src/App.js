@@ -11,6 +11,7 @@ import {AuthProvider} from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import LoginPage from "./pages/LoginPage";
 import LojaPage from "./pages/LojaPage";
+import CarrinhoPage from "./pages/CarrinhoPage";
 
 export default function App() {
     return (
@@ -32,6 +33,7 @@ export default function App() {
                             }
                         />
                         <Route path="/loja" element={<ProtectedRoute><LojaPage/></ProtectedRoute>}/>
+                        <Route path="/cart" element={<ProtectedRoute><CarrinhoPage/></ProtectedRoute>}/>
                     </Routes>
                 </div>
                 <Footer/>
