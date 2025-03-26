@@ -1,12 +1,14 @@
-import {Navbar, NavbarBrand, Nav, NavItem, NavLink, NavbarToggler, Collapse} from "reactstrap";
-import {Link} from "react-router-dom";
+import { Navbar, NavbarBrand, Nav, NavItem, NavLink, NavbarToggler, Collapse, Badge } from "reactstrap";
+import { Link } from "react-router-dom";
 import logo from "../assets/logotipo.png";
-import {useState} from "react";
+import { useState } from "react";
 import LogoutButton from "../components/LogoutButton";
-import {useAuth} from "../contexts/AuthContext"; // Importe o componente de logout
+import { useAuth } from "../contexts/AuthContext";
+import { useCart } from "../contexts/CartContext"; // Importe o hook do carrinho
 
 export default function Header() {
-    const {user} = useAuth(); // Obtém o estado de usuário do contexto
+    const { user } = useAuth();
+    const { totalItems } = useCart(); // Obtenha o total de itens do carrinho
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
 
@@ -16,14 +18,14 @@ export default function Header() {
                 <NavbarBrand tag={Link} to="/">
                     <div className="d-flex align-items-center">
                         <div>
-                            <img style={{maxWidth: "200px"}} src={logo} className="me-0 me-lg-4 img-fluid" alt="Logo"/>
+                            <img style={{ maxWidth: "200px" }} src={logo} className="me-0 me-lg-4 img-fluid" alt="Logo" />
                         </div>
                         <div className="d-none d-lg-block">
                             Projeto de Front-end com React [25E1_3] - João Victor
                         </div>
                     </div>
                 </NavbarBrand>
-                <NavbarToggler onClick={toggle}/>
+                <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="ms-auto align-items-center" navbar>
                         <NavItem>
@@ -36,14 +38,26 @@ export default function Header() {
                             <NavLink tag={Link} to="/loja">Loja</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} to="/cart">Cart</NavLink>
+                            <NavLink tag={Link} to="/cart" className="position-relative">
+                                Carrinho
+                                {totalItems > 0 && (
+                                    <Badge
+                                        color="danger"
+                                        pill
+                                        className="position-absolute top-0 start-100 translate-middle"
+                                        style={{ fontSize: '0.6rem' }}
+                                    >
+                                        {totalItems}
+                                    </Badge>
+                                )}
+                            </NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink tag={Link} to="/users-list">Users List</NavLink>
                         </NavItem>
                         {user && (
                             <NavItem>
-                                <LogoutButton/>
+                                <LogoutButton />
                             </NavItem>
                         )}
                     </Nav>
