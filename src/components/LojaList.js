@@ -1,13 +1,22 @@
-import React from 'react';
-import { Card, CardImg, CardBody, CardTitle, CardSubtitle, Row, Col } from 'reactstrap';
-import './LojaList.css'; // Importamos o CSS personalizado
+import React, {useState} from 'react';
+import {Card, CardImg, CardBody, CardTitle, CardSubtitle, Row, Col} from 'reactstrap';
+import ProductModal from './ProductModal';
+import './LojaList.css';
 
-const LojaList = ({ products }) => {
+const LojaList = ({products}) => {
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const toggleModal = (product = null) => {
+        setSelectedProduct(product);
+        setModalOpen(!modalOpen);
+    };
+
     return (
         <Row>
             {products.map((product) => (
                 <Col md="4" sm="6" xs="12" key={product.id} className="mb-4">
-                    <div className="product-card-wrapper">
+                    <div className="product-card-wrapper" onClick={() => toggleModal(product)}>
                         <Card className="h-100 product-card">
                             <div className="image-container">
                                 <CardImg
@@ -30,6 +39,14 @@ const LojaList = ({ products }) => {
                     </div>
                 </Col>
             ))}
+
+            {selectedProduct && (
+                <ProductModal
+                    product={selectedProduct}
+                    isOpen={modalOpen}
+                    toggle={() => toggleModal()}
+                />
+            )}
         </Row>
     );
 };

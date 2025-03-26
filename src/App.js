@@ -11,31 +11,34 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import LoginPage from "./pages/LoginPage";
 import LojaPage from "./pages/LojaPage";
 import CarrinhoPage from "./pages/CarrinhoPage";
+import {CartProvider} from "./contexts/CartContext"; // Importe o CartProvider
 
 export default function App() {
     return (
         <AuthProvider>
-            <Router>
-                <Header/>
-                <div className="container">
-                    <Routes>
-                        <Route path="/" element={<Home/>}/>
-                        <Route path="/todo" element={<TodoPage/>}/>
-                        <Route path="/login" element={<LoginPage/>}/>
-                        <Route
-                            path="/users-list"
-                            element={
-                                <ProtectedRoute>
-                                    <UsersListPage/>
-                                </ProtectedRoute>
-                            }
-                        />
-                        <Route path="/loja" element={<ProtectedRoute><LojaPage/></ProtectedRoute>}/>
-                        <Route path="/cart" element={<ProtectedRoute><CarrinhoPage/></ProtectedRoute>}/>
-                    </Routes>
-                </div>
-                <Footer/>
-            </Router>
+            <CartProvider>
+                <Router>
+                    <Header/>
+                    <div className="container">
+                        <Routes>
+                            <Route path="/" element={<Home/>}/>
+                            <Route path="/todo" element={<TodoPage/>}/>
+                            <Route path="/login" element={<LoginPage/>}/>
+                            <Route
+                                path="/users-list"
+                                element={
+                                    <ProtectedRoute>
+                                        <UsersListPage/>
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route path="/loja" element={<ProtectedRoute><LojaPage/></ProtectedRoute>}/>
+                            <Route path="/cart" element={<ProtectedRoute><CarrinhoPage/></ProtectedRoute>}/>
+                        </Routes>
+                    </div>
+                    <Footer/>
+                </Router>
+            </CartProvider>
         </AuthProvider>
     );
 }
