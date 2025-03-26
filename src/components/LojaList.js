@@ -1,36 +1,33 @@
 import React from 'react';
-import {Card, CardImg, CardBody, CardTitle, CardSubtitle, Row, Col} from 'reactstrap';
+import { Card, CardImg, CardBody, CardTitle, CardSubtitle, Row, Col } from 'reactstrap';
+import './LojaList.css'; // Importamos o CSS personalizado
 
-const LojaList = ({products}) => {
+const LojaList = ({ products }) => {
     return (
         <Row>
             {products.map((product) => (
                 <Col md="4" sm="6" xs="12" key={product.id} className="mb-4">
-                    <Card className="h-100">
-                        <div className="text-center p-3" style={{height: '200px', overflow: 'hidden'}}>
-                            <CardImg
-                                top
-                                src={product.thumbnail}
-                                alt={product.title}
-                                style={{
-                                    maxHeight: '100%',
-                                    width: 'auto',
-                                    objectFit: 'contain'
-                                }}
-                            />
-                        </div>
-                        <CardBody className="d-flex flex-column">
-                            <CardTitle tag="h5">{product.title}</CardTitle>
-                            <CardSubtitle tag="h6" className="mb-2 text-muted">
-                                Preço: ${product.price.toFixed(2)}
-                            </CardSubtitle>
-                            <div className="mt-auto">
-                                <small className="text-muted">
-                                    Estoque: {product.stock} unidades
-                                </small>
+                    <div className="product-card-wrapper">
+                        <Card className="h-100 product-card">
+                            <div className="image-container">
+                                <CardImg
+                                    top
+                                    src={product.thumbnail}
+                                    alt={product.title}
+                                    className="product-image"
+                                />
+                                <div className="price-badge">${product.price.toFixed(2)}</div>
                             </div>
-                        </CardBody>
-                    </Card>
+                            <CardBody className="d-flex flex-column">
+                                <CardTitle tag="h5" className="product-title">{product.title}</CardTitle>
+                                <div className="mt-auto">
+                                    <small className="text-muted stock-info">
+                                        Estoque: {product.stock} unidades
+                                    </small>
+                                </div>
+                            </CardBody>
+                        </Card>
+                    </div>
                 </Col>
             ))}
         </Row>
