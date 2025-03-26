@@ -36,3 +36,16 @@ export const login = async (credentials) => {
         throw error;
     }
 };
+
+export const fetchProducts = async (skip = 0, limit = 10) => {
+    try {
+        const response = await api.get(`/products?limit=${limit}&skip=${skip}`);
+        return {
+            products: response.data.products,
+            total: response.data.total
+        };
+    } catch (error) {
+        console.error("Erro ao buscar os produtos:", error);
+        throw error;
+    }
+};
