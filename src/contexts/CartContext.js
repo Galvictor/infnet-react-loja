@@ -1,60 +1,92 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import React, {createContext, useContext, useReducer, useEffect} from 'react';
 
 const CartContext = createContext();
 
+// Função para carregar o carrinho do localStorage
+const loadCartFromStorage = () => {
+    try {
+        const savedCart = localStorage.getItem('shoppingCart');
+        return savedCart ? JSON.parse(savedCart) : {items: []};
+    } catch (error) {
+        console.error('Failed to parse cart data', error);
+        return {items: []};
+    }
+};
+
+// Função para salvar o carrinho no localStorage
+const saveCartToStorage = (cart) => {
+    localStorage.setItem('shoppingCart', JSON.stringify(cart));
+};
+
 const cartReducer = (state, action) => {
+    let newState;
+
     switch (action.type) {
         case 'ADD_ITEM':
-            // Verifica se o item já está no carrinho
             const existingItem = state.items.find(item => item.id === action.payload.id);
 
             if (existingItem) {
-                // Se existir, atualiza a quantidade
-                return {
+                newState = {
                     ...state,
                     items: state.items.map(item =>
                         item.id === action.payload.id
-                            ? { ...item, quantity: item.quantity + action.payload.quantity }
+                            ? {...item, quantity: item.quantity + action.payload.quantity}
                             : item
                     ),
                 };
             } else {
-                // Se não existir, adiciona novo item
-                return {
+                newState = {
                     ...state,
                     items: [...state.items, action.payload],
                 };
             }
+            break;
 
         case 'REMOVE_ITEM':
-            return {
+            newState = {
                 ...state,
                 items: state.items.filter(item => item.id !== action.payload),
             };
+            break;
 
         case 'UPDATE_QUANTITY':
-            return {
+            newState = {
                 ...state,
                 items: state.items.map(item =>
                     item.id === action.payload.id
-                        ? { ...item, quantity: action.payload.quantity }
+                        ? {...item, quantity: action.payload.quantity}
                         : item
                 ),
             };
+            break;
 
         case 'CLEAR_CART':
-            return {
+            newState = {
                 ...state,
                 items: [],
             };
+            break;
+
+        case 'LOAD_CART':
+            return action.payload;
 
         default:
             return state;
     }
+
+    // Salva no localStorage após cada alteração
+    saveCartToStorage(newState);
+    return newState;
 };
 
-export const CartProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(cartReducer, { items: [] });
+export const CartProvider = ({children}) => {
+    const [state, dispatch] = useReducer(cartReducer, {items: []});
+
+    // Carrega o carrinho do localStorage quando o componente monta
+    useEffect(() => {
+        const savedCart = loadCartFromStorage();
+        dispatch({type: 'LOAD_CART', payload: savedCart});
+    }, []);
 
     const addToCart = (product, quantity) => {
         dispatch({
