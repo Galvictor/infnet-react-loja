@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button, Input, Label} from 'reactstrap';
 import {useCart} from '../contexts/CartContext';
+import {useTema} from '../contexts/TemaContext';
 
 const ProductModal = ({product, isOpen, toggle}) => {
     const [quantity, setQuantity] = useState(1);
     const {addToCart} = useCart();
+    const {temaEscuro} = useTema();
 
     const handleAddToCart = () => {
         if (quantity > 0) {
@@ -14,9 +16,11 @@ const ProductModal = ({product, isOpen, toggle}) => {
     };
 
     return (
-        <Modal isOpen={isOpen} toggle={toggle}>
-            <ModalHeader toggle={toggle}>Adicionar ao Carrinho</ModalHeader>
-            <ModalBody>
+        <Modal isOpen={isOpen} toggle={toggle} className={temaEscuro ? 'dark-modal' : ''}>
+            <ModalHeader toggle={toggle} className={temaEscuro ? 'bg-dark text-white' : ''}>
+                Adicionar ao Carrinho
+            </ModalHeader>
+            <ModalBody className={temaEscuro ? 'bg-secondary text-white' : ''}>
                 <div className="text-center mb-4">
                     <img
                         src={product.thumbnail}
@@ -34,9 +38,10 @@ const ProductModal = ({product, isOpen, toggle}) => {
                     min="1"
                     value={quantity}
                     onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
+                    className={temaEscuro ? 'bg-dark text-white' : ''}
                 />
             </ModalBody>
-            <ModalFooter>
+            <ModalFooter className={temaEscuro ? 'bg-dark' : ''}>
                 <Button color="secondary" onClick={toggle}>
                     Cancelar
                 </Button>

@@ -1,3 +1,4 @@
+/* Estilos base */
 .product-card-wrapper {
     position: relative;
     height: 100%;
@@ -6,23 +7,51 @@
 }
 
 .product-card {
-    border: none;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    border: 1px solid;
+}
+
+body.bg-light .product-card {
+    border-color: #dee2e6;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+body.bg-dark .product-card {
+    border-color: #6c757d;
+    background-color: #343a40;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .product-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
 }
 
+body.bg-light .product-card:hover {
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    border-color: #adb5bd;
+}
+
+body.bg-dark .product-card:hover {
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+    border-color: #ced4da;
+}
+
+/* Restante do CSS permanece igual */
 .image-container {
     position: relative;
     height: 200px;
     overflow: hidden;
+}
+
+body.bg-light .image-container {
     background-color: #f8f9fa;
+}
+
+body.bg-dark .image-container {
+    background-color: #212529;
 }
 
 .product-image {
@@ -55,20 +84,20 @@
     transform: scale(1.1);
 }
 
-.product-title {
-    color: #333;
-    transition: color 0.3s ease;
+/* Estilos para o modal dark */
+.dark-modal .modal-content {
+    background-color: #343a40;
+    color: white;
 }
 
-.product-card:hover .product-title {
-    color: #007bff;
+.dark-modal .close {
+    color: white;
 }
 
-.stock-info {
-    transition: all 0.3s ease;
+.dark-modal .modal-header {
+    border-bottom: 1px solid #495057;
 }
 
-.product-card:hover .stock-info {
-    font-weight: bold;
-    color: #28a745 !important;
+.dark-modal .modal-footer {
+    border-top: 1px solid #495057;
 }

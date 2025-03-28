@@ -2,11 +2,13 @@ import React, {useState, useEffect} from 'react';
 import {Container, Row, Col, Pagination, PaginationItem, PaginationLink} from 'reactstrap';
 import {fetchProducts} from '../services/apiService';
 import LojaList from '../components/LojaList';
+import {useTema} from '../contexts/TemaContext';
 
 const LojaPage = () => {
     const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalProducts, setTotalProducts] = useState(0);
+    const {temaEscuro} = useTema();
     const productsPerPage = 9;
 
     useEffect(() => {
@@ -27,7 +29,7 @@ const LojaPage = () => {
     };
 
     return (
-        <Container className="my-5">
+        <Container className={`my-5 ${temaEscuro ? 'text-white' : 'text-dark'}`}>
             <Row>
                 <Col>
                     <h1 className="text-center mb-5">Loja de Produtos</h1>
@@ -37,19 +39,30 @@ const LojaPage = () => {
                         <div className="d-flex justify-content-center mt-5">
                             <Pagination>
                                 <PaginationItem disabled={currentPage === 1}>
-                                    <PaginationLink previous onClick={() => handlePageChange(currentPage - 1)}/>
+                                    <PaginationLink
+                                        previous
+                                        onClick={() => handlePageChange(currentPage - 1)}
+                                        className={temaEscuro ? 'bg-dark text-white' : ''}
+                                    />
                                 </PaginationItem>
 
                                 {[...Array(totalPages)].map((_, index) => (
                                     <PaginationItem active={index + 1 === currentPage} key={index}>
-                                        <PaginationLink onClick={() => handlePageChange(index + 1)}>
+                                        <PaginationLink
+                                            onClick={() => handlePageChange(index + 1)}
+                                            className={temaEscuro ? 'bg-dark text-white' : ''}
+                                        >
                                             {index + 1}
                                         </PaginationLink>
                                     </PaginationItem>
                                 ))}
 
                                 <PaginationItem disabled={currentPage === totalPages}>
-                                    <PaginationLink next onClick={() => handlePageChange(currentPage + 1)}/>
+                                    <PaginationLink
+                                        next
+                                        onClick={() => handlePageChange(currentPage + 1)}
+                                        className={temaEscuro ? 'bg-dark text-white' : ''}
+                                    />
                                 </PaginationItem>
                             </Pagination>
                         </div>
