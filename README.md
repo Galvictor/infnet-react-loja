@@ -94,5 +94,4 @@ npm run build
 Este projeto é para fins educacionais, desenvolvido como parte do curso Front-end com React.
 
 ---
-👨‍💻 **Aluno:** João Victor  
-📅 **Última atualização:** Outubro 2023
+👨‍💻 **Aluno:** João Victor
